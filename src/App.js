@@ -10,9 +10,10 @@ const App = () => {
 
 
   return (
-
-    <h1>book tracker</h1>
-
+    <>
+      <h1>book tracker</h1>
+      <h2>books</h2>
+    </>
   )
 
 }
