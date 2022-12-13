@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Book from './components/bookapp';
+
 //===========================================================================
 //============================= Hooks =======================================
 const App = () => {
@@ -17,8 +18,9 @@ const App = () => {
   const [bookRead, setBookRead] = useState(false);
   //another hook
   const [books, setBooks] = useState([]);
-  //================================= Hooks for updating =========================
-  //==============================================================================
+
+  //=====================================================================
+  //=========================== Hooks for updating ======================
   //update title hook
   const [updateTitle, setUpdateTitle] = useState();
   //update author hook
@@ -83,16 +85,24 @@ const App = () => {
   }
 
   // update author function
-
+  const handleUpdateAuthor = (event) => {
+    setUpdateAuthor(event.target.value);
+  }
 
   // update genre function
-
+  const handleUpdateGenre = (event) => {
+    setUpdateGenre(event.target.value)
+  }
 
   // update image function
-
+  const handleUpdateImage = (event) => {
+    setUpdateImage(event.target.value)
+  }
 
   // update read checkbox function
-
+  const handleUpdateRead = (event) => {
+    setUpdateRead(event.target.checked)
+  }
 
   //====================================================================
   //==================== Use Effect ====================================
@@ -115,19 +125,37 @@ const App = () => {
 
   //====================================================================
   //=============================== Read Toggle ========================
-  const handleToggleRead = (bookData) => {
-    axios.put(`https://murmuring-citadel-25803.herokuapp.com/books/${bookData._id}`,
+  // const handleToggleRead = (bookData) => {
+  //   axios.put(`https://murmuring-citadel-25803.herokuapp.com/books/${bookData._id}`,
+  //     {
+  //       title: bookData.title,
+  //       author: bookData.author,
+  //       genre: bookData.genre,
+  //       image: bookData.image,
+  //       read: !bookData.read
+  //     }).then(() => {
+  //       axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+  //         setBooks(response.data)
+  //       })
+  //     })
+  // }
+
+  //===================================================================
+  //======================== Submit for Update ===========================
+  const updateSubmit = (book) => {
+    axios.put(`https://murmuring-citadel-25803.herokuapp.com/books/${book._id}`,
       {
-        title: bookData.title,
-        author: bookData.author,
-        genre: bookData.genre,
-        image: bookData.image,
-        read: !bookData.read
-      }).then(() => {
-        axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
-          setBooks(response.data)
-        })
+        title: updateTitle,
+        author: updateAuthor,
+        genre: updateGenre,
+        image: updateImage,
+        read: updateRead
+      }
+    ).then(() => {
+      axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+        setBooks(response.data)
       })
+    })
   }
 
   //=========================================================================
@@ -137,7 +165,7 @@ const App = () => {
       <h1>Book Tracker App</h1>
       <h2>Add A New Book</h2>
       <section>
-        {/* Create section */}
+        {/* Create book section */}
         <form onSubmit={newBookFormSubmit}>
           Title: <input type="text" onChange={newTitleChange} /><br />
           Author: <input type="text" onChange={newAuthorChange} /><br />
@@ -147,28 +175,24 @@ const App = () => {
           <input type="submit" value="Submit Book" />
         </form>
       </section>
-      {/* Show section */}
+      {/* Show books section */}
       <section>
         <h3>Books you have not read yet:</h3>
-        <ul>
-          {
-            books.map((book) => {
-              return <li onClick={(event) => {
-                handleToggleRead(book)
-              }}> {
-                  (book.read) ?
-                    <><strike>{book.title}</strike></> : <>{book.title}</>
-                } <br />
-                {book.author}<br />
-                {book.genre}<br />
-                <img src={book.image} /> <br />
-                <button onClick={(event) => {
-                  handleDelete(book)
-                }}>Delete</button>
-              </li>
-            })
-          }
-        </ul>
+        {
+          books.map((book) => {
+            return
+            <>
+              <Book book={book} updateSubmit={updateSubmit}
+                handleUpdateTitle={handleUpdateTitle}
+                handleUpdateAuthor={handleUpdateAuthor}
+                handleUpdateGenre={handleUpdateGenre}
+                handleUpdateImage={handleUpdateImage}
+                handleUpdateRead={handleUpdateRead}
+                handleDelete={handleDelete}
+              />
+            </>
+          })
+        }
         <h3>Books you have read:</h3>
       </section>
     </>

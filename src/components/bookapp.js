@@ -30,12 +30,12 @@ const Book = (props) => {
                         {
                             edits ?
                                 <div><h2>Edit Book</h2>
-                                    <form onSubmit={(event) => { props.handleUpdateSubmit(props.book) }}>
-                                        Title: <input type="text" defaultValue={props.book.title} onChange={props.handleUpdateYear} />
-                                        Author: <input type="text" defaultValue={props.book.author} onChange={props.handleUpdateMake} />
-                                        Genre: <input type="text" defaultValue={props.book.genre} onChange={props.handleUpdateModel} />
+                                    <form onSubmit={(event) => { props.updateSubmit(props.book) }}>
+                                        Title: <input type="text" defaultValue={props.book.title} onChange={props.handleUpdateTitle} />
+                                        Author: <input type="text" defaultValue={props.book.author} onChange={props.handleUpdateAuthor} />
+                                        Genre: <input type="text" defaultValue={props.book.genre} onChange={props.handleUpdateGenre} />
                                         Image: <input type="text" defaultValue={props.book.image} onChange={props.handleUpdateImage} />
-                                        Have you read this book?<input type="checkbox" defaultChecked={props.book.read} onChange={props.handleUpdateAvail} />
+                                        Have you read this book?<input type="checkbox" defaultChecked={props.book.read} onChange={props.handleUpdateRead} />
                                         <input type="submit" value="Update Book" />
                                     </form></div>
                                 :
