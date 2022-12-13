@@ -32,27 +32,6 @@ const App = () => {
   //update read/checked hook
   const [updateRead, setUpdateRead] = useState();
 
-  //===============================================================================
-  //================================ Functions ====================================
-  //submit form function
-  const newBookFormSubmit = (event) => {
-    event.preventDefault();
-    axios.post(
-      'https://murmuring-citadel-25803.herokuapp.com/books', {
-
-      title: bookTitle,
-      author: bookAuthor,
-      genre: bookGenre,
-      image: bookImage,
-      read: bookRead
-    }
-    ).then(() => {
-      axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
-
-        setBooks(response.data)
-      })
-    })
-  }
 
   //title change function
   const newTitleChange = (event) => {
@@ -106,14 +85,28 @@ const App = () => {
     setUpdateRead(event.target.checked)
   }
 
-  //====================================================================
-  //==================== Use Effect ====================================
-  useEffect(() => {
-    axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
-      console.log(response.data);
-      setBooks(response.data)
+  //===============================================================================
+  //================================ Functions ====================================
+  //submit form function
+  const newBookFormSubmit = (event) => {
+    event.preventDefault();
+    axios.post(
+      'https://murmuring-citadel-25803.herokuapp.com/books', {
+
+      title: bookTitle,
+      author: bookAuthor,
+      genre: bookGenre,
+      image: bookImage,
+      read: bookRead
+    }
+    ).then(() => {
+      axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+
+        setBooks(response.data)
+      })
     })
-  }, [])
+  }
+
 
   //=====================================================================
   //================================= Delete ============================
@@ -126,27 +119,12 @@ const App = () => {
       })
   }
 
-  //====================================================================
-  //=============================== Read Toggle ========================
-  // const handleToggleRead = (bookData) => {
-  //   axios.put(`https://murmuring-citadel-25803.herokuapp.com/books/${bookData._id}`,
-  //     {
-  //       title: bookData.title,
-  //       author: bookData.author,
-  //       genre: bookData.genre,
-  //       image: bookData.image,
-  //       read: !bookData.read
-  //     }).then(() => {
-  //       axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
-  //         setBooks(response.data)
-  //       })
-  //     })
-  // }
-
   //===================================================================
   //======================== Submit for Update ===========================
-  const updateSubmit = (book) => {
-    axios.put(`https://murmuring-citadel-25803.herokuapp.com/books/${book._id}`,
+  const updateSubmit = (bookData) => {
+
+
+    axios.put(`https://murmuring-citadel-25803.herokuapp.com/books/${bookData._id}/edit`,
       {
         title: updateTitle,
         author: updateAuthor,
@@ -157,9 +135,20 @@ const App = () => {
     ).then(() => {
       axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
         setBooks(response.data)
+
       })
     })
   }
+
+
+  //====================================================================
+  //==================== Use Effect ====================================
+  useEffect(() => {
+    axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+      setBooks(response.data)
+    })
+  }, [])
+
 
   //=========================================================================
   //=========================================================================
@@ -181,24 +170,24 @@ const App = () => {
       {/* Show books section */}
       <section>
         <h3>Books you have not read yet:</h3>
-        { 
-  
+        {
 
-    
-          books.map((book) => {
-            
+
+
+          books.map((book, i) => {
+
             return (
-              <>
-                    
-              <Book book={book} updateSubmit={updateSubmit}
-                handleUpdateTitle={handleUpdateTitle}
-                handleUpdateAuthor={handleUpdateAuthor}
-                handleUpdateGenre={handleUpdateGenre}
-                handleUpdateImage={handleUpdateImage}
-                handleUpdateRead={handleUpdateRead}
-                handleDelete={handleDelete}
-              />
-           </>
+              <div key={i}>
+
+                <Book key={i} book={book} updateSubmit={updateSubmit}
+                  handleUpdateTitle={handleUpdateTitle}
+                  handleUpdateAuthor={handleUpdateAuthor}
+                  handleUpdateGenre={handleUpdateGenre}
+                  handleUpdateImage={handleUpdateImage}
+                  handleUpdateRead={handleUpdateRead}
+                  handleDelete={handleDelete}
+                />
+              </div>
             )
           })
         }
