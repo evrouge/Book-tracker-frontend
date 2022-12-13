@@ -39,6 +39,7 @@ const App = () => {
     event.preventDefault();
     axios.post(
       'https://murmuring-citadel-25803.herokuapp.com/books', {
+
       title: bookTitle,
       author: bookAuthor,
       genre: bookGenre,
@@ -47,6 +48,7 @@ const App = () => {
     }
     ).then(() => {
       axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+
         setBooks(response.data)
       })
     })
@@ -108,6 +110,7 @@ const App = () => {
   //==================== Use Effect ====================================
   useEffect(() => {
     axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+
       setBooks(response.data)
     })
   }, [])
@@ -195,6 +198,7 @@ const App = () => {
         }
         <h3>Books you have read:</h3>
       </section>
+
     </>
   )
 }
