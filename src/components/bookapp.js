@@ -25,7 +25,7 @@ const Book = (props) => {
                         <h3>{props.book.author}</h3>
                         <h3>{props.book.genre}</h3>
                         <h3>{props.book.read}</h3>
-                        <button onClick={(event) => { props.handleNewDelete(props.book) }} type="button">Delete</button>
+                        <button onClick={(event) => { props.handleDelete(props.book) }} type="button">Delete</button>
                         <button onClick={handleEdit}>Edit</button>
 
                         { edits ?
