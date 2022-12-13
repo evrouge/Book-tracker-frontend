@@ -1,26 +1,38 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Book from './components/bookapp';
 //===========================================================================
-//============================= Hooks ===================================
+//============================= Hooks =======================================
 const App = () => {
   //hook for title
-  const [bookTitle, setBookTitle] = useState("");
+  const [bookTitle, setBookTitle] = useState('');
   //hook for author
-  const [bookAuthor, setBookAuthor] = useState("");
+  const [bookAuthor, setBookAuthor] = useState('');
   //hook for genre
-  const [bookGenre, setBookGenre] = useState("");
+  const [bookGenre, setBookGenre] = useState('');
   //hook for image
-  const [bookImage, setBookImage] = useState("");
+  const [bookImage, setBookImage] = useState('');
   //hook for if the book has been read / default false
   const [bookRead, setBookRead] = useState(false);
   //another hook
   const [books, setBooks] = useState([]);
+  //================================= Hooks for updating =========================
+  //==============================================================================
+  //update title hook
+  const [updateTitle, setUpdateTitle] = useState();
+  //update author hook
+  const [updateAuthor, setUpdateAuthor] = useState();
+  //update genre hook
+  const [updateGenre, setUpdateGenre] = useState();
+  //update image hook
+  const [updateImage, setUpdateImage] = useState();
+  //update read/checked hook
+  const [updateRead, setUpdateRead] = useState();
 
   //===============================================================================
   //================================ Functions ====================================
-  //submit form button function
+  //submit form function
   const newBookFormSubmit = (event) => {
     event.preventDefault();
     axios.post(
@@ -63,13 +75,43 @@ const App = () => {
     setBookRead(event.target.checked)
   }
 
+  //=========================================================================
+  //========================= Update functions ==============================
+  // update title function
+  const handleUpdateTitle = (event) => {
+    setUpdateTitle(event.target.value);
+  }
+
+  // update author function
+
+
+  // update genre function
+
+
+  // update image function
+
+
+  // update read checkbox function
+
+
   //====================================================================
-  //==================== use effect ====================================
+  //==================== Use Effect ====================================
   useEffect(() => {
     axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
       setBooks(response.data)
     })
   }, [])
+
+  //=====================================================================
+  //================================= Delete ============================
+  const handleDelete = (bookData) => {
+    axios.delete(`https://murmuring-citadel-25803.herokuapp.com/books/${bookData._id}`)
+      .then(() => {
+        axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+          setBooks(response.data)
+        })
+      })
+  }
 
   //====================================================================
   //=============================== Read Toggle ========================
@@ -80,7 +122,11 @@ const App = () => {
         author: bookData.author,
         genre: bookData.genre,
         image: bookData.image,
-        read: bookData.read
+        read: !bookData.read
+      }).then(() => {
+        axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
+          setBooks(response.data)
+        })
       })
   }
 
@@ -89,8 +135,9 @@ const App = () => {
   return (
     <>
       <h1>Book Tracker App</h1>
-      <h2>Your Books</h2>
+      <h2>Add A New Book</h2>
       <section>
+        {/* Create section */}
         <form onSubmit={newBookFormSubmit}>
           Title: <input type="text" onChange={newTitleChange} /><br />
           Author: <input type="text" onChange={newAuthorChange} /><br />
@@ -100,6 +147,7 @@ const App = () => {
           <input type="submit" value="Submit Book" />
         </form>
       </section>
+      {/* Show section */}
       <section>
         <h3>Books you have not read yet:</h3>
         <ul>
@@ -107,8 +155,16 @@ const App = () => {
             books.map((book) => {
               return <li onClick={(event) => {
                 handleToggleRead(book)
-              }}>
-
+              }}> {
+                  (book.read) ?
+                    <><strike>{book.title}</strike></> : <>{book.title}</>
+                } <br />
+                {book.author}<br />
+                {book.genre}<br />
+                <img src={book.image} /> <br />
+                <button onClick={(event) => {
+                  handleDelete(book)
+                }}>Delete</button>
               </li>
             })
           }
