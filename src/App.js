@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Book from './components/bookapp';
+import Book from './components/bookapp.js';
 
 //===========================================================================
 //============================= Hooks =======================================
@@ -110,7 +110,7 @@ const App = () => {
   //==================== Use Effect ====================================
   useEffect(() => {
     axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
-
+      console.log(response.data);
       setBooks(response.data)
     })
   }, [])
@@ -181,10 +181,15 @@ const App = () => {
       {/* Show books section */}
       <section>
         <h3>Books you have not read yet:</h3>
-        {
+        { 
+  
+
+    
           books.map((book) => {
-            return
-            <>
+            
+            return (
+              <>
+                    
               <Book book={book} updateSubmit={updateSubmit}
                 handleUpdateTitle={handleUpdateTitle}
                 handleUpdateAuthor={handleUpdateAuthor}
@@ -193,14 +198,15 @@ const App = () => {
                 handleUpdateRead={handleUpdateRead}
                 handleDelete={handleDelete}
               />
-            </>
+           </>
+            )
           })
         }
         <h3>Books you have read:</h3>
-      </section>
 
-    </>
-  )
+      </section>
+</>
+)
 }
 
 //================================================================================
