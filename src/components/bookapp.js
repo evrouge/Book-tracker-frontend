@@ -10,6 +10,7 @@ const Book = (props) => {
 
     //========================================================
     //================= Edit Function ========================
+
     const handleEdit = () => {
         setEdits(!edits);
     }
@@ -48,6 +49,7 @@ const Book = (props) => {
             </div>
             {/* : null
             } */}
+
 
         </>
     )

@@ -33,7 +33,6 @@ const App = () => {
   const [updateRead, setUpdateRead] = useState();
 
 
-
   //title change function
   const newTitleChange = (event) => {
     setBookTitle(event.target.value)
@@ -135,9 +134,8 @@ const App = () => {
       }
     ).then(() => {
       axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
-        console.log(response.data)
         setBooks(response.data)
-        console.log(bookData)
+
       })
     })
   }
@@ -150,6 +148,7 @@ const App = () => {
       setBooks(response.data)
     })
   }, [])
+
 
   //=========================================================================
   //=========================================================================
@@ -195,8 +194,8 @@ const App = () => {
         <h3>Books you have read:</h3>
 
       </section>
-    </>
-  )
+</>
+)
 }
 
 //================================================================================
