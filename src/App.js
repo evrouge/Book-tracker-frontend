@@ -3,6 +3,32 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Book from './components/bookapp.js';
 
+
+//===========================================================================
+//========================= Boostrap Import ================================
+
+///Import/link Boostrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+///button
+import Button from 'react-bootstrap/Button';
+///Form
+import Form from 'react-bootstrap/Form';
+////NavBar
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas'
+
+///Cards for books
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
+
+
+
+
 //===========================================================================
 //============================= Hooks =======================================
 const App = () => {
@@ -154,32 +180,73 @@ const App = () => {
   //=========================================================================
   return (
     <>
+    <div>
+    <Navbar bg="light" variant="light">
+        <Container>
+          <Navbar.Brand href="#home">BookTracker</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Books</Nav.Link>
+            <Nav.Link href="#pricing">Ordered</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+    </div>
+
       <h1>Book Tracker App</h1>
       <h2>Add A New Book</h2>
+      
       <section>
         {/* Create book section */}
         <form onSubmit={newBookFormSubmit}>
+
+
+        {/* <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group> */}
+
+
+
+
+
+
           Title: <input type="text" onChange={newTitleChange} /><br />
           Author: <input type="text" onChange={newAuthorChange} /><br />
           Genre: <input type="text" onChange={newGenreChange} /><br />
           Image URL: <input type="text" onChange={newImageChange} /><br />
           Have you read this book? <input type="checkbox" onChange={newReadOrNotChange} /> Yes<br />
-          <input type="submit" value="Submit Book" />
+          {/* <input variant="danger" type="submit" value="Submit Book" /> old button */}
+          <Button variant="danger" input type="submit" value="Submit Book">Submit Book</Button>
+
         </form>
       </section>
       {/* Show books section */}
       <section>
         <h3>Books you have not read yet:</h3>
+        <Row xs={1} md={3} className="g-4">
         {
-
-
-
+        
           books.map((book, i) => {
 
             return (
               <div key={i}>
 
-                <Book key={i} book={book} updateSubmit={updateSubmit}
+
+
+      {Array.from({ length: 1
+       }).map((_, idx) => (
+        <Col>
+          <Card>
+            {/* <Card.Img variant="top" src="holder.js/100px160"  /> */}
+            <Card.Body>
+              {/* <Card.Title>Card title</Card.Title> */}
+              <Card.Text>
+                
+              <Book key={i} book={book} updateSubmit={updateSubmit}
                   handleUpdateTitle={handleUpdateTitle}
                   handleUpdateAuthor={handleUpdateAuthor}
                   handleUpdateGenre={handleUpdateGenre}
@@ -187,10 +254,31 @@ const App = () => {
                   handleUpdateRead={handleUpdateRead}
                   handleDelete={handleDelete}
                 />
+
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+   
+
+   
+
+
+
+                {/* <Book key={i} book={book} updateSubmit={updateSubmit}
+                  handleUpdateTitle={handleUpdateTitle}
+                  handleUpdateAuthor={handleUpdateAuthor}
+                  handleUpdateGenre={handleUpdateGenre}
+                  handleUpdateImage={handleUpdateImage}
+                  handleUpdateRead={handleUpdateRead}
+                  handleDelete={handleDelete}
+                /> */}
               </div>
             )
           })
         }
+         </Row>
         <h3>Books you have read:</h3>
 
       </section>

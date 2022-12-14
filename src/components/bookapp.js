@@ -35,7 +35,8 @@ const Book = (props) => {
                 {edits ?
                     <div>
                         <h2>Edit Book</h2>
-                        <form onSubmit={(event) => { event.preventDefault(); props.updateSubmit(props.book) }}>
+                        <form onSubmit={(event) => { event.preventDefault(); props.updateSubmit(props.book); handleEdit() }}>
+
                             Title: <input type="text" defaultValue={props.book.title} onChange={props.handleUpdateTitle} /><br />
                             Author: <input type="text" defaultValue={props.book.author} onChange={props.handleUpdateAuthor} /><br />
                             Genre: <input type="text" defaultValue={props.book.genre} onChange={props.handleUpdateGenre} /><br />
