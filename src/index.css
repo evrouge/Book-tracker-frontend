@@ -11,3 +11,49 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+img {
+  height: 20%;
+  width: 20%;
+}
+
+form {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin: 30px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+div {
+  text-align: center;
+}
+
+h1 {
+  padding-top: 60px;
+  padding-bottom: 20px;
+}
+
+section {
+  padding: 10px;
+}
+
+h3 {
+  padding: 5px;
+}
+
+.books {
+  text-decoration: underline;
+  letter-spacing: .3em;
+  word-spacing: .2em;
+}
+
+h2 {
+  padding-top: 60px;
+}
+
+input {
+  border: 3px solid lightblue;
+}
