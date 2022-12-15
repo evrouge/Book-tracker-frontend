@@ -6,7 +6,7 @@ import Book from './components/bookapp.js';
 //===========================================================================
 //========================= Boostrap Import ================================
 import 'bootstrap/dist/css/bootstrap.min.css';
-/// buttons
+// buttons
 import Button from 'react-bootstrap/Button';
 // nav bar
 import Container from 'react-bootstrap/Container';
@@ -66,9 +66,8 @@ const App = () => {
   // image change function
   const newImageChange = (event) => {
     setBookImage(event.target.value)
-  }
 
-  // read or not checkbox function
+// read or not checkbox function
   const newReadOrNotChange = (event) => {
     setBookRead(event.target.checked)
   }
@@ -102,12 +101,13 @@ const App = () => {
 
   //===============================================================================
   //================================ Functions ====================================
-  // submit form function
+  //submit form function
   const newBookFormSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
     axios.post(
       'https://murmuring-citadel-25803.herokuapp.com/books', {
+
       title: bookTitle,
       author: bookAuthor,
       genre: bookGenre,
@@ -116,12 +116,10 @@ const App = () => {
     }
     ).then(() => {
       axios.get('https://murmuring-citadel-25803.herokuapp.com/books').then((response) => {
-
         setBooks(response.data)
       })
     })
-  }
-
+  
   //=====================================================================
   //================================= Delete ============================
   const handleDelete = (bookData) => {

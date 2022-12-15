@@ -26,6 +26,7 @@ const Book = (props) => {
                 <h3>{props.book.author}</h3>
                 <h3>{props.book.genre}</h3>
                 <h3>{props.book.read}</h3>
+                
                 {/* bootstap / react buttons */}
                 <Button variant="outline-primary" onClick={(event) => { props.handleDelete(props.book) }}>Delete</Button>
                 <Button variant="outline-primary" onClick={handleEdit}>Edit</Button>
