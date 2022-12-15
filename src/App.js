@@ -182,13 +182,13 @@ const App = () => {
   return (
     <>
     <div>
-    <Navbar bg="light" variant="light">
+    <Navbar bg="primary" variant="dark">
         <Container>
           <Navbar.Brand href="#home">BookTracker</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#features">Books</Nav.Link>
-            <Nav.Link href="#pricing">Ordered</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -196,7 +196,7 @@ const App = () => {
 
     <div>    
        <h1>Book Tracker App</h1>
-      <h2>Add A New Book</h2>
+      <h2>Add A New Book :</h2>
       </div>
  
       <section>
