@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import '../App.css';
+import Button from 'react-bootstrap/Button';
+
 //==========================================================
 //================== Props =================================
 const Book = (props) => {
@@ -29,8 +31,8 @@ const Book = (props) => {
                 <h3>{props.book.author}</h3>
                 <h3>{props.book.genre}</h3>
                 <h3>{props.book.read}</h3>
-                <button onClick={(event) => { props.handleDelete(props.book) }}>Delete</button>
-                <button onClick={handleEdit}>Edit</button>
+                <Button variant="outline-primary"  onClick={(event) => { props.handleDelete(props.book) }}>Delete</Button>
+                <Button  variant="outline-primary" onClick={handleEdit}>Edit</Button>
 
                 {edits ?
                     <div>
@@ -42,8 +44,9 @@ const Book = (props) => {
                             Genre: <input type="text" defaultValue={props.book.genre} onChange={props.handleUpdateGenre} /><br />
                             Image: <input type="text" defaultValue={props.book.image} onChange={props.handleUpdateImage} /><br />
                             Have you read this book?<input type="checkbox" defaultChecked={props.book.read} onChange={props.handleUpdateRead} /><br />
-                            <input type="submit" value="Update Book" />
-                        </form>
+                            <Button variant="primary" size="sm" type="submit" value="Update Book">Update Book</Button>
+                            
+                         </form>
                     </div>
 
                     : null}

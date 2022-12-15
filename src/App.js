@@ -116,6 +116,7 @@ const App = () => {
   //submit form function
   const newBookFormSubmit = (event) => {
     event.preventDefault();
+    event.target.reset();
     axios.post(
       'https://murmuring-citadel-25803.herokuapp.com/books', {
 
@@ -193,49 +194,37 @@ const App = () => {
       </Navbar>
     </div>
 
-      <h1>Book Tracker App</h1>
+    <div>    
+       <h1>Book Tracker App</h1>
       <h2>Add A New Book</h2>
-      
+      </div>
+ 
       <section>
         {/* Create book section */}
         <form onSubmit={newBookFormSubmit}>
-
-
-        {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group> */}
-
-
-
-
-
-
           Title: <input type="text" onChange={newTitleChange} /><br />
           Author: <input type="text" onChange={newAuthorChange} /><br />
           Genre: <input type="text" onChange={newGenreChange} /><br />
           Image URL: <input type="text" onChange={newImageChange} /><br />
-          Have you read this book? <input type="checkbox" onChange={newReadOrNotChange} /> Yes<br />
-          {/* <input variant="danger" type="submit" value="Submit Book" /> old button */}
-          <Button variant="danger" input type="submit" value="Submit Book">Submit Book</Button>
-
+          Have you read this book? <input type="checkbox" onChange={newReadOrNotChange} /> Yes<br />  
+          <Button variant="primary" size="lg" input type="submit" value="Submit Book">Submit Book</Button>
         </form>
       </section>
+
       {/* Show books section */}
       <section>
         <h3>Books you have not read yet:</h3>
-        <Row xs={1} md={3} className="g-4">
+
+        <Row sm={1} md={3} className="g-4">
         {
         
           books.map((book, i) => {
 
-            return (
-              <div key={i}>
-
-
+            return (<>
+              {book.read ? 
+                null : <>
+                
+                <div key={i}>
 
       {Array.from({ length: 1
        }).map((_, idx) => (
@@ -260,26 +249,61 @@ const App = () => {
           </Card>
         </Col>
       ))}
-   
 
-   
+              </div>
+                </> }
+           </>
+              
+            )
+          })
+        }
+         </Row>
 
+        <h3>Books you have read:</h3>
 
+        <Row sm={1} md={3} className="g-4">
+        {
+        
+          books.map((book, i) => {
 
-                {/* <Book key={i} book={book} updateSubmit={updateSubmit}
+            return (<>
+              {!book.read ? 
+                null : <>
+                
+                <div key={i}>
+
+      {Array.from({ length: 1
+       }).map((_, idx) => (
+        <Col>
+          <Card>
+            {/* <Card.Img variant="top" src="holder.js/100px160"  /> */}
+            <Card.Body>
+              {/* <Card.Title>Card title</Card.Title> */}
+              <Card.Text>
+                
+              <Book key={i} book={book} updateSubmit={updateSubmit}
                   handleUpdateTitle={handleUpdateTitle}
                   handleUpdateAuthor={handleUpdateAuthor}
                   handleUpdateGenre={handleUpdateGenre}
                   handleUpdateImage={handleUpdateImage}
                   handleUpdateRead={handleUpdateRead}
                   handleDelete={handleDelete}
-                /> */}
+                />
+
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+
               </div>
+                </> }
+           </>
+              
             )
           })
         }
          </Row>
-        <h3>Books you have read:</h3>
 
       </section>
 </>
